@@ -1,0 +1,3 @@
+[submodule "vendor/wiiuse"]
+	path = vendor/wiiuse
+	url = https://github.com/rpavlik/wiiuse.git
