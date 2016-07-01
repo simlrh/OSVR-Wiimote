@@ -13,7 +13,7 @@
 // Standard includes
 #include <iostream>
 #define _USE_MATH_DEFINES
-#include <Math.h>
+#include <math.h>
 
 #define MAX_WIIMOTES 4
 #define TRACKERS_PER_WIIMOTE 2

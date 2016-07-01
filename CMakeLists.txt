@@ -11,6 +11,9 @@ set(BUILD_EXAMPLE_SDL OFF CACHE BOOL "Should we build the SDL-based example app?
 set(INSTALL_EXAMPLES OFF CACHE BOOL "Should we install the example apps?")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendor/wiiuse/cmake")
 
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+
 add_subdirectory("vendor/wiiuse")
 
 osvr_convert_json(je_nourish_wiimote_json
