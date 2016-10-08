@@ -20,6 +20,8 @@
 #define BUTTONS_PER_WIIMOTE 13
 #define ANALOG_PER_WIIMOTE 5
 
+#define IS_PRESSED_OSVR(device, button) (IS_PRESSED((device),(button)) ? OSVR_BUTTON_PRESSED : OSVR_BUTTON_NOT_PRESSED)
+
 // Anonymous namespace to avoid symbol collision
 namespace {
 
@@ -85,17 +87,17 @@ namespace {
 					wm = m_wiimotes[i];
 
 					if (wm->event == WIIUSE_EVENT) {
-						buttons[BUTTONS_PER_WIIMOTE*i + 0] = IS_PRESSED(wm, WIIMOTE_BUTTON_A);
-						buttons[BUTTONS_PER_WIIMOTE*i + 1] = IS_PRESSED(wm, WIIMOTE_BUTTON_B);
-						buttons[BUTTONS_PER_WIIMOTE*i + 2] = IS_PRESSED(wm, WIIMOTE_BUTTON_UP);
-						buttons[BUTTONS_PER_WIIMOTE*i + 3] = IS_PRESSED(wm, WIIMOTE_BUTTON_DOWN);
-						buttons[BUTTONS_PER_WIIMOTE*i + 4] = IS_PRESSED(wm, WIIMOTE_BUTTON_LEFT);
-						buttons[BUTTONS_PER_WIIMOTE*i + 5] = IS_PRESSED(wm, WIIMOTE_BUTTON_RIGHT);
-						buttons[BUTTONS_PER_WIIMOTE*i + 6] = IS_PRESSED(wm, WIIMOTE_BUTTON_ONE);
-						buttons[BUTTONS_PER_WIIMOTE*i + 7] = IS_PRESSED(wm, WIIMOTE_BUTTON_TWO);
-						buttons[BUTTONS_PER_WIIMOTE*i + 8] = IS_PRESSED(wm, WIIMOTE_BUTTON_MINUS);
-						buttons[BUTTONS_PER_WIIMOTE*i + 9] = IS_PRESSED(wm, WIIMOTE_BUTTON_PLUS);
-						buttons[BUTTONS_PER_WIIMOTE*i + 10] = IS_PRESSED(wm, WIIMOTE_BUTTON_HOME);
+						buttons[BUTTONS_PER_WIIMOTE*i + 0] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_A);
+						buttons[BUTTONS_PER_WIIMOTE*i + 1] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_B);
+						buttons[BUTTONS_PER_WIIMOTE*i + 2] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_UP);
+						buttons[BUTTONS_PER_WIIMOTE*i + 3] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_DOWN);
+						buttons[BUTTONS_PER_WIIMOTE*i + 4] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_LEFT);
+						buttons[BUTTONS_PER_WIIMOTE*i + 5] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_RIGHT);
+						buttons[BUTTONS_PER_WIIMOTE*i + 6] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_ONE);
+						buttons[BUTTONS_PER_WIIMOTE*i + 7] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_TWO);
+						buttons[BUTTONS_PER_WIIMOTE*i + 8] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_MINUS);
+						buttons[BUTTONS_PER_WIIMOTE*i + 9] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_PLUS);
+						buttons[BUTTONS_PER_WIIMOTE*i + 10] = IS_PRESSED_OSVR(wm, WIIMOTE_BUTTON_HOME);
 
 						if (WIIUSE_USING_ACC(wm)) {
 
@@ -122,8 +124,8 @@ namespace {
 						if (wm->exp.type == EXP_NUNCHUK || wm->exp.type == EXP_MOTION_PLUS_NUNCHUK) {
 							struct nunchuk_t* nc = (nunchuk_t*)&wm->exp.nunchuk;
 
-							buttons[BUTTONS_PER_WIIMOTE*i + 11] = IS_PRESSED(wm, NUNCHUK_BUTTON_C);
-							buttons[BUTTONS_PER_WIIMOTE*i + 12] = IS_PRESSED(wm, NUNCHUK_BUTTON_Z);
+							buttons[BUTTONS_PER_WIIMOTE*i + 11] = IS_PRESSED_OSVR(nc, NUNCHUK_BUTTON_C);
+							buttons[BUTTONS_PER_WIIMOTE*i + 12] = IS_PRESSED_OSVR(nc, NUNCHUK_BUTTON_Z);
 
 							analog[ANALOG_PER_WIIMOTE*i + 3] = nc->js.x;
 							analog[ANALOG_PER_WIIMOTE*i + 4] = nc->js.y;
@@ -137,31 +139,16 @@ namespace {
 							osvrDeviceTrackerSendOrientation(m_dev, m_tracker, &nc_quaternion, (TRACKERS_PER_WIIMOTE * i) + 1);
 						} 
 						else {
-							buttons[BUTTONS_PER_WIIMOTE*i + 11] = false;
-							buttons[BUTTONS_PER_WIIMOTE*i + 12] = false;
+							buttons[BUTTONS_PER_WIIMOTE*i + 11] = OSVR_BUTTON_NOT_PRESSED;
+							buttons[BUTTONS_PER_WIIMOTE*i + 12] = OSVR_BUTTON_NOT_PRESSED;
 							analog[ANALOG_PER_WIIMOTE*i + 3] = 0;
 							analog[ANALOG_PER_WIIMOTE*i + 4] = 0;
 						}
 					} 
-					else {
-						buttons[BUTTONS_PER_WIIMOTE*i + 0] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 1] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 2] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 3] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 4] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 5] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 6] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 7] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 8] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 9] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 10] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 11] = false;
-						buttons[BUTTONS_PER_WIIMOTE*i + 12] = false;
-					}
 				}
 
-				osvrDeviceAnalogSetValues(m_dev, m_analog, analog, 20);
-				osvrDeviceButtonSetValues(m_dev, m_button, buttons, 52);
+				osvrDeviceAnalogSetValues(m_dev, m_analog, analog, ANALOG_PER_WIIMOTE * MAX_WIIMOTES);
+				osvrDeviceButtonSetValues(m_dev, m_button, buttons, BUTTONS_PER_WIIMOTE * MAX_WIIMOTES);
 			}
 
 			return OSVR_RETURN_SUCCESS;
