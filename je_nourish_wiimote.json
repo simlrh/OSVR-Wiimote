@@ -11,7 +11,7 @@
 	  "position": false
 	},
 	"analog": {
-		"count": 20
+		"count": 32
 	},
 	"button": {
 		"count": 52
@@ -21,11 +21,18 @@
 	"wiimote1": {
 		"$target": "tracker/0",
 		"a": "button/0",
-		"b": "button/1",
+		"b": {
+			"$target": "button/1",
+			"analog": "analog/5"
+		},
 		"up": "button/2",
 		"down": "button/3",
 		"left": "button/4",
 		"right": "button/5",
+		"dpad": {
+			"x": "analog/6",
+			"y": "analog/7"
+		},
 		"one": "button/6",
 		"two": "button/7",
 		"minus": "button/8",
@@ -49,84 +56,105 @@
 	"wiimote2": {
 		"$target": "tracker/2",
 		"a": "button/13",
-		"b": "button/14",
+		"b": {
+			"$target": "button/14",
+			"analog": "analog/13"
+		},
 		"up": "button/15",
 		"down": "button/16",
 		"left": "button/17",
 		"right": "button/18",
+		"dpad": {
+			"x": "analog/14",
+			"y": "analog/15"
+		},
 		"one": "button/19",
 		"two": "button/20",
 		"minus": "button/21",
 		"plus": "button/22",
 		"home": "button/23",
 		"ir": {
-			"x": "analog/5",
-			"y": "analog/6",
-			"z": "analog/7"
+			"x": "analog/8",
+			"y": "analog/9",
+			"z": "analog/10"
 		},
 		"nunchuk": {
 			"$target": "tracker/3",
 			"c": "button/24",
 			"z": "button/25",
 			"joystick": {
-				"x": "analog/8",
-				"y": "analog/9"
+				"x": "analog/11",
+				"y": "analog/12"
 			}
 		}
 	},
 	"wiimote3": {
 		"$target": "tracker/4",
 		"a": "button/26",
-		"b": "button/27",
+		"b": {
+			"$target": "button/27",
+			"analog": "analog/21"
+		},
 		"up": "button/28",
 		"down": "button/29",
 		"left": "button/30",
 		"right": "button/31",
+		"dpad": {
+			"x": "analog/22",
+			"y": "analog/23"
+		},
 		"one": "button/32",
 		"two": "button/33",
 		"minus": "button/34",
 		"plus": "button/35",
 		"home": "button/36",
 		"ir": {
-			"x": "analog/10",
-			"y": "analog/11",
-			"z": "analog/12"
+			"x": "analog/16",
+			"y": "analog/17",
+			"z": "analog/18"
 		},
 		"nunchuk": {
 			"$target": "tracker/5",
 			"c": "button/37",
 			"z": "button/38",
 			"joystick": {
-				"x": "analog/13",
-				"y": "analog/14"
+				"x": "analog/19",
+				"y": "analog/20"
 			}
 		}
 	},
 	"wiimote4": {
 		"$target": "tracker/6",
 		"a": "button/39",
-		"b": "button/40",
+		"b": {
+			"$target": "button/40",
+			"analog": "analog/29"
+		},
 		"up": "button/41",
 		"down": "button/42",
 		"left": "button/43",
 		"right": "button/44",
+		"dpad": {
+			"x": "analog/30",
+			"y": "analog/31"
+		},
 		"one": "button/45",
 		"two": "button/46",
 		"minus": "button/47",
 		"plus": "button/48",
 		"home": "button/49",
 		"ir": {
-			"x": "analog/15",
-			"y": "analog/16",
-			"z": "analog/17"
+			"x": "analog/24",
+			"y": "analog/25",
+			"z": "analog/26"
 		},
 		"nunchuk": {
 			"$target": "tracker/7",
 			"c": "button/50",
 			"z": "button/51",
 			"joystick": {
-				"x": "analog/18",
-				"y": "analog/19"
+				"x": "analog/27",
+				"y": "analog/28"
 			}
 		}
 	}
@@ -134,18 +162,24 @@
   "automaticAliases": {		
 	"/me/hands/right": "semantic/wiimote1",
 	"/controller/right/1": "semantic/wiimote1/a",
-	"/controller/right/2": "semantic/wiimote1/left",
-	"/controller/right/3": "semantic/wiimote1/right",
-	"/controller/right/4": "semantic/wiimote1/up",
-	"/controller/right/bumper": "semantic/wiimote1/down",
-	"/controller/right/joystick/button": "semantic/wiimote1/home",
-	"/controller/right/middle": "semantic/wiimote1/one",
-	"/controller/right/trigger": "semantic/wiimote1/b",
+	"/controller/right/2": "semantic/wiimote1/minus",
+	"/controller/right/3": "semantic/wiimote1/plus",
+	"/controller/right/4": "semantic/wiimote1/one",
+	"/controller/right/bumper": "semantic/wiimote1/two",
+	"/controller/right/middle": "semantic/wiimote1/home",
+	"/controller/right/joystick/x": "semantic/wiimote1/dpad/x",
+	"/controller/right/joystick/y": "semantic/wiimote1/dpad/y",
+	"/controller/right/trigger": "semantic/wiimote1/b/analog",
 
-	"/me/hands/left": "semantic/wiimote1/nunchuk",
-	"/controller/left/1": "semantic/wiimote1/nunchuk/c",
-	"/controller/left/joystick/x": "semantic/wiimote1/nunchuk/joystick/x",
-	"/controller/left/joystick/y": "semantic/wiimote1/nunchuk/joystick/y",
-	"/controller/left/trigger": "semantic/wiimote1/z"
+	"/me/hands/left": "semantic/wiimote2",
+	"/controller/left/1": "semantic/wiimote2/a",
+	"/controller/left/2": "semantic/wiimote2/minus",
+	"/controller/left/3": "semantic/wiimote2/plus",
+	"/controller/left/4": "semantic/wiimote2/one",
+	"/controller/left/bumper": "semantic/wiimote2/two",
+	"/controller/left/middle": "semantic/wiimote2/home",
+	"/controller/left/joystick/x": "semantic/wiimote2/dpad/x",
+	"/controller/left/joystick/y": "semantic/wiimote2/dpad/y",
+	"/controller/left/trigger": "semantic/wiimote2/b/analog"
   }
 }
