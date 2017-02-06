@@ -1,4 +1,4 @@
-# OSVR Wiimote Plugin
+# OSVR Wiimote Plugin [![Donate](https://nourish.je/assets/images/donate.svg)](http://ko-fi.com/A250KJT)
 
 An OSVR plugin providing up to four Wii Remote + Nunchuk devices via the wiiuse library. There's one orientation only tracker per wiimote or nunchuk, although yaw is only available if using the sensor bar.
 
